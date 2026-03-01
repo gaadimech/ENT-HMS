@@ -22,6 +22,8 @@
 
 # misc
 .DS_Store
+.claude/
+supabase/.temp/
 *.pem
 
 # debug
@@ -30,8 +32,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files — never commit secrets; .env.example is the template
 .env*
+!.env.example
 
 # vercel
 .vercel

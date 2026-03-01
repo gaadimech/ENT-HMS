@@ -1,0 +1,11 @@
+# Railway deployment config for ENT-HMS (Pragati ENT Hospital)
+# https://docs.railway.app/reference/config-as-code
+
+[build]
+builder = "nixpacks"
+
+[deploy]
+# Next.js standalone: smaller image, faster cold starts
+startCommand = "node .next/standalone/server.js"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
