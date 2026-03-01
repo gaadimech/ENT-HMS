@@ -84,12 +84,12 @@ function VisitDetail({ sd }: { sd: Record<string, unknown> }) {
           <ul className="text-xs text-slate-700 space-y-0.5">{exams.map((e, i) => <li key={i}>• {e}</li>)}</ul>
         </div>
       )}
-      {sd.presentation && (
+      {typeof sd.presentation === 'string' && sd.presentation ? (
         <div>
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Diagnosis</p>
-          <p className="text-xs text-slate-700">{sd.presentation as string}</p>
+          <p className="text-xs text-slate-700">{sd.presentation}</p>
         </div>
-      )}
+      ) : null}
       {meds.length > 0 && (
         <div>
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Medications ({meds.length})</p>
