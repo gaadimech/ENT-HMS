@@ -92,7 +92,7 @@ export default function DashboardPage() {
       setTodayCount((todayVisitsRes.data ?? []).length);
       setWaitingCount(waitingRes.count ?? 0);
     } catch {
-      setError('Failed to load dashboard data. Check your Supabase configuration.');
+      setError('Failed to load dashboard data. Check your connection and try again.');
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -126,30 +126,30 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
           <p className="text-sm text-slate-500 mt-0.5">
             {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={refresh}
             disabled={refreshing}
-            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors touch-manipulation"
             title="Refresh"
           >
             <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
           </button>
           <Link
             href="/patients"
-            className="flex items-center gap-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm"
+            className="flex items-center justify-center gap-2 flex-1 sm:flex-initial px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm touch-manipulation"
           >
-            <UserPlus className="w-4 h-4" />
+            <UserPlus className="w-4 h-4 shrink-0" />
             Add Patient
           </Link>
         </div>
@@ -158,7 +158,13 @@ export default function DashboardPage() {
       {/* Error */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700">
-          {error}
+          <p>{error}</p>
+          <button
+            onClick={() => { setLoading(true); fetchData(); }}
+            className="mt-2 text-sm font-medium text-red-800 underline hover:no-underline"
+          >
+            Retry
+          </button>
         </div>
       )}
 
@@ -216,7 +222,7 @@ export default function DashboardPage() {
               const fullName = `${p?.first_name ?? ''} ${p?.last_name ?? ''}`.trim();
               const visitTime = new Date(visit.visit_date).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
               return (
-                <div key={visit.id} className="flex items-center gap-4 px-5 py-3.5 hover:bg-slate-50 transition-colors">
+                <div key={visit.id} className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-3.5 hover:bg-slate-50 transition-colors touch-manipulation">
                   {/* Avatar */}
                   <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                     <span className="text-sm font-bold text-blue-700">

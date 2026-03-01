@@ -199,12 +199,12 @@ export default function PatientsPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
 
       {showModal && <AddPatientModal onClose={() => setShowModal(false)} onCreated={handleCreated} />}
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Patients</h1>
           <p className="text-sm text-slate-500 mt-0.5">{patients.length} registered patient{patients.length !== 1 ? 's' : ''}</p>
@@ -220,7 +220,10 @@ export default function PatientsPage() {
       {/* Error */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700">
-          {error}
+          <p>{error}</p>
+          <button onClick={() => fetchPatients()} className="mt-2 text-sm font-medium text-red-800 underline hover:no-underline">
+            Retry
+          </button>
         </div>
       )}
 
